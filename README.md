@@ -200,3 +200,46 @@ python train.py <alpha> <l1_ratio>
 و می‌توان نتیجه‌ی مدل‌های مختلف را در UI دید همچنین اگر لازم باشد که پروژه را با تنظیمات مشخص بتوان همواره اجرا کرد می‌توان از MLflow project استفاده کرد.
 حال برای دیپلوی کردن مدل‌های ذخیره شده از MLflow model استفاده می‌کنیم که در از یک فرمت استاندارد برای ذخیره کردن مدل استفاده می‌شود و کتابخانه‌های مختلفی مانند SpaCy و PyTorch را پشتیبانی می‌کند. 
 ## AirFlow
+برای نصب از دستور زیر استفاده کنید:
+```
+# Configurations
+export AIRFLOW_HOME=${PWD}/airflow
+AIRFLOW_VERSION=2.0.1
+PYTHON_VERSION="$(python --version | cut -d " " -f 2 | cut -d "." -f 1-2)"
+CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+
+# Install Airflow (may need to upgrade pip)
+pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
+
+# Initialize DB (SQLite by default)
+airflow db init
+```
+یک فولدر با ساختار زیر ساخته می‌شود:
+‍‍‍```
+airflow/
+├── logs/
+└── airflow.cfg
+├── airflow.db
+├── unittests.cfg
+└── webserver_config.py
+```
+با دستور زیر یک کاربر ادمین برای دسترسی به دیتابیس ساخته می‌شود:
+```
+airflow users create \
+    --username admin \
+    --firstname  \
+    --lastname  \
+    --role Admin \
+    --email 
+```
+همچنین با دستور زیر سرور اجرا می‌شود:
+```
+# Launch webserver
+export AIRFLOW_HOME=${PWD}/airflow
+airflow webserver --port 8080  # http://localhost:8080
+```
+در airflow می‌توان یک DAG برای مشخص کردن مراحل اجرای یک تسک به شکل زیر تعریف کرد:
+‍```
+mkdir airflow/dags
+touch airflow/dags/example.py
+```
