@@ -202,27 +202,27 @@ python train.py <alpha> <l1_ratio>
 ## AirFlow
 برای نصب از دستور زیر استفاده کنید:
 ```
-# Configurations
+#Configurations
 export AIRFLOW_HOME=${PWD}/airflow
 AIRFLOW_VERSION=2.0.1
 PYTHON_VERSION="$(python --version | cut -d " " -f 2 | cut -d "." -f 1-2)"
 CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
 
-# Install Airflow (may need to upgrade pip)
+#Install Airflow (may need to upgrade pip)
 pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
 
-# Initialize DB (SQLite by default)
+#Initialize DB (SQLite by default)
 airflow db init
 ```
 یک فولدر با ساختار زیر ساخته می‌شود:
-‍‍‍```
+‍‍
 airflow/
 ├── logs/
 └── airflow.cfg
 ├── airflow.db
 ├── unittests.cfg
 └── webserver_config.py
-```
+
 با دستور زیر یک کاربر ادمین برای دسترسی به دیتابیس ساخته می‌شود:
 ```
 airflow users create \
@@ -234,7 +234,7 @@ airflow users create \
 ```
 همچنین با دستور زیر سرور اجرا می‌شود:
 ```
-# Launch webserver
+#Launch webserver
 export AIRFLOW_HOME=${PWD}/airflow
 airflow webserver --port 8080  # http://localhost:8080
 ```
